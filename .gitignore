@@ -1,0 +1,21 @@
+########################
+#Unreal Generated Files#
+########################
+
+*/Intermediate
+*/Binaries
+*/Saved
+*/Build
+*/DerivedDataCache
+*/_BuiltData.uasset
+BuildingEscape/Content/StarterContent/
+########################
+#VC Generated Files#
+########################
+
+*.VC.db
+
+
+BuildingEscape/.vs/BuildingEscape/v15/Solution.VC.db-shm
+BuildingEscape/.vs/BuildingEscape/v15/Browse.VC.opendb
+BuildingEscape/.vs/BuildingEscape/v15/Solution.VC.db-wal
