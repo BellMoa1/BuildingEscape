@@ -4,7 +4,7 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
-
+#include "GameFramework/Actor.h"
 #define OUT
 
 
@@ -39,15 +39,15 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	/// Getting Player ViewPoint
+
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 	// Get Player view point in this tick
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
 
-	/*UE_LOG(LogTemp,Warning,TEXT("Location: %s  Rotation: %s"),
-		*PlayerViewPointLocation.ToString(),
-		*PlayerViewPointRotation.ToString())*/
 
+	///
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 
@@ -61,8 +61,28 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		0.f,
 		0, 10.f
 	);
+	
+	///Line Tracing Aka ray-tracing
 
+	FHitResult Hit;
+	FCollisionQueryParams QueryParams(FName(TEXT("")), false, GetOwner());
+	GetWorld()->LineTraceSingleByObjectType(Hit
+		, PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		QueryParams
+	);
 
-	// ...
+	///See result 
+
+	AActor* ActorHit = Hit.GetActor();
+	
+	if (ActorHit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Line tracing  %s "), *(ActorHit->GetName()))
+	}
+
+	
+
 }
 
