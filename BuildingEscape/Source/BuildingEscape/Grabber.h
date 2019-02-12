@@ -2,7 +2,8 @@
 
 #pragma once
 
-
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Grabber.generated.h"
@@ -21,6 +22,10 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	
+
+	
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -28,5 +33,20 @@ public:
 private:
 	
 	float Reach = 100.f;
-		
+
+	class UPhysicsHandleComponent* Phisic = nullptr;
+	class UInputComponent* Component =nullptr;
+
+	void Grab();
+
+	///Release method
+
+	void GrabRelease();
+	
+	void FindPhysics();
+
+	void SetupInput();
+
+	FHitResult GetFirstPhysicsBodyInReach() const;
+
 };
